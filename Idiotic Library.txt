@@ -1,11 +1,28 @@
 
 
+
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
 local LocalPlayer = game:GetService("Players").LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
 local HttpService = game:GetService("HttpService")
+local UserInputService = game:GetService("UserInputService")
+local IsOnMobile = UserInputService.TouchEnabled and not UserInputService.KeyboardEnabled and not UserInputService.MouseEnabled
+
+abc = UDim2.new(0.5,0,0.8,0)
+
+e,a = pcall(function()
+	if IsOnMobile then
+		abc = UDim2.new(0.5,0,0.8,0)
+	else
+		abc = UDim2.new(0.378,0,0.54,0)
+	end
+	
+end)
+if not e then
+	abc = UDim2.new(0.5,0,0.8,0)
+end
 
 local OrionLib = {
 	Elements = {},
@@ -595,7 +612,7 @@ function OrionLib:MakeWindow(WindowConfig)
 		Parent = Orion,
 		Position = UDim2.new(0.5, 0, 0.5, 0),
 		AnchorPoint = Vector2.new(0.5,0.5),
-		Size = UDim2.new(0.5,0,0.8,0),
+		Size = abc,
 		ClipsDescendants = true
 	}), {
 		--SetProps(MakeElement("Image", "rbxassetid://3523728077"), {
@@ -658,7 +675,7 @@ function OrionLib:MakeWindow(WindowConfig)
 
 	AddConnection(MinimizeBtn.MouseButton1Up, function()
 		if Minimized then
-			TweenService:Create(MainWindow, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(.5,0,.8,0)}):Play()
+			TweenService:Create(MainWindow, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = abc}):Play()
 			MinimizeBtn.Ico.Image = "rbxassetid://7072719338"
 			wait(.02)
 			MainWindow.ClipsDescendants = false
